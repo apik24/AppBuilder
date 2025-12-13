@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VividTodo</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <header id="app-header" class="app-header">
+        <h1>VividTodo</h1>
+    </header>
+    <main id="app-main" class="app-main">
+        <!-- Form for adding new tasks -->
+        <section id="new-task-section" class="new-task-section">
+            <form id="new-task-form" aria-label="Add new task" autocomplete="off">
+                <input type="text" id="new-task-input" placeholder="What needs to be done?" aria-label="New task" required />
+                <button type="submit" id="add-task-button">Add</button>
+            </form>
+        </section>
+
+        <!-- Task list -->
+        <section id="task-list-section" class="task-list-section">
+            <ul id="task-list" aria-live="polite" aria-label="Task list"></ul>
+        </section>
+
+        <!-- Filters -->
+        <nav class="filters" aria-label="Task filters">
+            <button id="filter-all" class="filter-btn" aria-pressed="true" data-filter="all">All</button>
+            <button id="filter-active" class="filter-btn" aria-pressed="false" data-filter="active">Active</button>
+            <button id="filter-completed" class="filter-btn" aria-pressed="false" data-filter="completed">Completed</button>
+        </nav>
+
+        <!-- Theme selector -->
+        <section class="theme-selector-section">
+            <label for="theme-selector">Theme:</label>
+            <select id="theme-selector" aria-label="Select theme">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="system">System</option>
+            </select>
+        </section>
+
+        <!-- Hidden template for task items -->
+        <template id="task-item-template">
+            <li class="task-item-template" hidden aria-hidden="true">
+                <input type="checkbox" class="task-checkbox" aria-label="Mark task as completed" />
+                <span class="task-text"></span>
+                <button class="delete-task" aria-label="Delete task">✕</button>
+            </li>
+        </template>
+    </main>
+</body>
+</html>

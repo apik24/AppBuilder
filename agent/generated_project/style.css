@@ -1,0 +1,291 @@
+/*
+  style.css – VividTodo styling
+  Implements colour themes, responsive layout, task states and drag‑and‑drop cues.
+*/
+
+/* ---------------------------------------------------
+   1. CSS Variables – Theme Palette & Typography
+   --------------------------------------------------- */
+:root {
+  /* Generic colour variables – will be overridden by theme classes */
+  --primary: #ff6f61;   /* Vibrant coral */
+  --secondary: #6c5ce7; /* Soft purple */
+  --accent: #00b894;    /* Fresh green */
+  --background: #f5f5f5;
+  --text: #2d3436;
+  --muted: #636e72;
+
+  /* Typography */
+  --font-family: 'Roboto', sans-serif;
+  --transition-duration: 0.25s;
+}
+
+/* ---------------------------------------------------
+   2. Theme Classes – Light, Dark, Solarized
+   --------------------------------------------------- */
+.theme-light {
+  --primary: #ff6f61;
+  --secondary: #6c5ce7;
+  --accent: #00b894;
+  --background: #ffffff;
+  --text: #2d3436;
+  --muted: #636e72;
+}
+
+.theme-dark {
+  --primary: #ff6f61;
+  --secondary: #6c5ce7;
+  --accent: #00b894;
+  --background: #2d2d2d;
+  --text: #f5f5f5;
+  --muted: #a0a0a0;
+}
+
+.theme-solarized {
+  --primary: #b58900;   /* Solarized yellow */
+  --secondary: #268bd2; /* Solarized blue */
+  --accent: #2aa198;    /* Solarized cyan */
+  --background: #fdf6e3; /* Solarized base3 */
+  --text: #657b83;      /* Solarized base00 */
+  --muted: #93a1a1;     /* Solarized base1 */
+}
+
+/* ---------------------------------------------------
+   3. Global Reset & Box‑Sizing
+   --------------------------------------------------- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font-family);
+  color: var(--text);
+  background: var(--background);
+  line-height: 1.5;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ---------------------------------------------------
+   4. Layout Containers (Header, Main, Footer)
+   --------------------------------------------------- */
+.app-header,
+.app-main,
+.app-footer {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.app-header h1 {
+  font-size: 2.5rem;
+  color: var(--primary);
+  transition: color var(--transition-duration) ease;
+}
+
+/* ---------------------------------------------------
+   5. New‑Task Form
+   --------------------------------------------------- */
+#new-task-section {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+#new-task-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#new-task-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--secondary);
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
+}
+
+#new-task-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(255, 111, 97, 0.2);
+}
+
+#add-task-button {
+  padding: 0.75rem 1.2rem;
+  background-color: var(--primary);
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background-color var(--transition-duration) ease, transform var(--transition-duration) ease;
+}
+
+#add-task-button:hover {
+  background-color: #e55a4f;
+  transform: translateY(-2px);
+}
+
+/* ---------------------------------------------------
+   6. Task List & Items
+   --------------------------------------------------- */
+#task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 4px;
+  border-left: 5px solid var(--secondary);
+  transition: background-color var(--transition-duration) ease, border-color var(--transition-duration) ease, opacity var(--transition-duration) ease;
+}
+
+.task-item:hover {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-color: var(--primary);
+}
+
+.task-item .task-text {
+  flex: 1;
+  margin-left: 0.5rem;
+}
+
+/* Task completed state */
+.task-completed {
+  opacity: 0.6;
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+/* Task editing state – replaces text with an input */
+.task-editing .task-text {
+  display: none;
+}
+
+.task-editing .edit-input {
+  flex: 1;
+  margin-left: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid var(--secondary);
+  border-radius: 4px;
+}
+
+/* ---------------------------------------------------
+   7. Footer – Filters & Clear Completed
+   --------------------------------------------------- */
+.app-footer {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.filters {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.filter-btn {
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  background-color: var(--muted);
+  color: #fff;
+  font-size: 0.9rem;
+  transition: background-color var(--transition-duration) ease, transform var(--transition-duration) ease;
+}
+
+.filter-btn:hover {
+  background-color: var(--secondary);
+  transform: translateY(-1px);
+}
+
+.filter-btn.active-filter {
+  background-color: var(--primary);
+}
+
+.clear-completed {
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  background-color: var(--accent);
+  color: #fff;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: background-color var(--transition-duration) ease, opacity var(--transition-duration) ease;
+}
+
+.clear-completed:hover {
+  background-color: #009975;
+  opacity: 0.9;
+}
+
+/* ---------------------------------------------------
+   8. Drag‑and‑Drop Visual Cue
+   --------------------------------------------------- */
+.drag-over {
+  border: 2px dashed var(--primary);
+  background-color: rgba(255, 111, 97, 0.1);
+}
+
+/* ---------------------------------------------------
+   9. Responsive Breakpoints
+   --------------------------------------------------- */
+@media (max-width: 600px) {
+  .app-header h1 {
+    font-size: 2rem;
+  }
+
+  #new-task-form {
+    flex-direction: column;
+  }
+
+  #add-task-button {
+    width: 100%;
+  }
+}
+
+@media (min-width: 601px) {
+  .app-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #new-task-section,
+  #task-list-section {
+    width: 100%;
+    max-width: 600px;
+  }
+}
